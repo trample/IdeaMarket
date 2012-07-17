@@ -1,0 +1,35 @@
+<h1>Listing ideas</h1>
+
+<table class="table">
+  <tr>
+    <th>User</th>
+    <th>Title</th>
+    <th>Price</th> 
+    <th>Decription</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ideas.each do |idea| %>
+  <tr>
+    <td><%= idea.user_id %></td>
+    <td><%= idea.title %></td>
+    <td><%= idea.price %></td>
+    <td><%= idea.decription %></td>
+    <td><%= link_to 'Show', idea, class:"btn btn-mini" %></td>
+    <% if signed_in?&&current_user.id==idea.user_id %>
+    <td><%= link_to 'Edit', edit_idea_path(idea), class:"btn btn-mini" %></td>
+    <td><%= link_to 'Destroy', idea, confirm: 'Are you sure?', method: :delete, class:"btn btn-danger btn-mini"%></td>
+    <% else %>
+    <td><%= link_to 'Edit', "#", class:"btn btn-mini disabled" %></td>
+    <td><%= link_to 'Destroy', "#", class:"btn btn-danger btn-mini disabled" %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<%if signed_in? %>
+<%= link_to 'New Idea', new_user_idea_path(current_user.id) %>
+<%end%> 
